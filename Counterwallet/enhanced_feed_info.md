@@ -19,10 +19,10 @@ The JSON object/mapping data the URL points to must contain the following data:
 <table>
 <tr><td><b>address</b></td><td>Required</td><td>The Bitcoin address used to broadcast the json url and that will broadcast the result.</td></tr>
 <tr><td><b>title</b></td><td>Required</td><td>The title of the feed. 64 characters max.</td></tr>
-<tr><td><b>broadcast_date</b></td><td>Required</td><td>When the bet will be resolved. When type=binary broadcast_date must be a rfc3339 date. When type=cfd broadcast_date must be an iso8601 repeating interval.</td></tr>
+<tr><td><b>broadcast_date</b></td><td>Required</td><td>When the bet will be resolved. When type=binary broadcast_date must be a rfc3339 date. When type=cfd (deprecated) broadcast_date must be an iso8601 repeating interval.</td></tr>
 <tr><td><b>deadline </b></td><td>Required if type='cfd'.</td><td>Must be an iso8601 repeating interval.</td></tr>
 <tr><td><b>targets </b></td><td>Required if type='binary'.</td><td>A list/array of JSON objects. Each object contains details about a potential user choice for the bet. Normally, with binary bets, there is only one target object provided. However, it is possible to provide more than one, but in this case, the user would be able to bet yes or no for each option (meaning, if two targets were provided, there would be 4 separate user choices possible).</td></tr>
-<tr><td><b>type</b></td><td>Optional</td><td>The type of the bet. Must be one of: 'binary', 'cfd' or 'all'. If type is not specified, targets OR deadline MUST be provided.</td></tr>
+<tr><td><b>type</b></td><td>Optional</td><td>The type of the bet. Must be one of: 'binary' or 'all'. If type is not specified, targets OR deadline MUST be provided.</td></tr>
 <tr><td><b>category</b></td><td>Optional</td><td>The nature of the feed. Must be one of: 'sports', 'politics', 'entertainment', 'economics', or 'other'.</td></tr>
 <tr><td><b>description</b></td><td>Optional</td><td>A longish description about this feed. 255 characters max.</td></tr>
 <tr><td><b>image</b></td><td>Optional</td><td>A link a 48x48 PNG image to represent the feed in the graphical user interface listing. The text itself must be a valid URL that starts with "http://" or "https://". The image the URL references must be in PNG format (the URL must end in .png). It must be 48x48, and it must use the RGB or RGBA color palette. If any of these are not correct, the system will reject it.</td></tr>
@@ -30,9 +30,9 @@ The JSON object/mapping data the URL points to must contain the following data:
 <tr><td><b>operator</b></td><td>Optional</td><td>Object that contains informations about the feed operator.</td></tr>
 <tr><td><b>customs</b></td><td>Optional</td><td>Object that contains additional custom informations about the feed. All values should be integer or string.</td></tr>
 <tr><td><b>version</b></td><td>Optional</td><td>Version of the schema used for the json (current 1.0).</td></tr>
-<tr><td><b>labels</b></td><td>Optional </td><td>Labels used for CFD bets.</td></tr>
-<tr><td><b>labels.bull</b></td><td>Required </td><td>Label for bet type equal BullCFD. 32 characters max.</td></tr>
-<tr><td><b>labels.bear</b></td><td>Required </td><td>Label for bet type equal BearCFD. 32 characters max.</td></tr>
+<tr><td><b>labels</b></td><td>Optional </td><td>Labels used for CFD bets (now obsolete).</td></tr>
+<tr><td><b>labels.bull</b></td><td>Required </td><td>Label for bet type equal BullCFD (obsolete). 32 characters max.</td></tr>
+<tr><td><b>labels.bear</b></td><td>Required </td><td>Label for bet type equal BearCFD (obsolete). 32 characters max.</td></tr>
 <tr><td><b>odds</b></td><td>Optional </td><td>Object that contains default odds for Bull bets (the inverse is used for Bear bets).</td></tr>
 <tr><td><b>odds.initial</b></td><td>Required (or odds.suggested)</td><td>Default odds used when there is not open bets.</td></tr>
 <tr><td><b>odds.suggested</b></td><td>Required (or odds.initial)</td><td>Default odds used when there is open bets. </td></tr>
@@ -126,7 +126,7 @@ Here's an example for a binary feed called <b>Superbowl 2014</b>:
 }
 </pre></blockquote>
 
-Here's an example for a cfd feed called <b>Bistamp BTC Price</b>:
+Here's an example for a CFD feed called <b>Bistamp BTC Price</b> (note that this type of bet is obsolete):
 <blockquote><pre>
 {
 	"version": "1.0",
